@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <title>Admin Page</title>
+</head>
+<body>
+
+    <div class="wrapper">
+        <!-- Sidebar -->
+        
+    
+            <div class="content" id="mainContent">
+                <!-- Dashboard Content -->
+                <div id="dashboard" class="content-section">
+                    
+                    <!-- Appointment Overview Container -->
+                    <div class="appointment-overview-container">
+                        <!-- Section Title -->
+                        <div class="appointment-overview-title">
+                            <h3>APPOINTMENT OVERVIEW</h3>
+                        </div>
+
+                        <!-- Appointment Overview Cards -->
+                        <div class="appointment-overview-cards">
+                            <div class="card">
+                                <h2>Total Number of Appointments</h2>
+                                <p id="totalAppointments"></p>
+                            </div>
+
+                            <div class="card">
+                                <h2>Today's Appointments</h2>
+                                <p id="todaysAppointments"></p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Dental Service Report -->
+                    <div id="dental-service-report" class="dental-service-report">
+                        <!-- Section Title -->
+                        <div class="total-patients-title">
+                            <h3>Dental Service Report</h3>
+                        </div>
+                        <div class="service-filter">
+                            <div class="filter-section">
+                                <label for="sortFilter">Sort by Service:</label>
+                                <select id="sortFilter">
+                                    <option value="" disabled selected>Choose option</option>
+                                    <option value="Oral Prophylaxis ">Oral Prophylaxis </option>
+                                    <option value="Extraction ">Extraction </option>
+                                    <option value="Light Curing ">Light Curing </option>
+                                    <option value="Pits and Fissure ">Pits and Fissure</option>
+                                    <option value="Diastema Closure ">Diastema Closure </option>
+                                    <option value="Flouride Application ">Flouride Application </option>
+                                    <option value="Periodontal Treatment ">Periodontal Treatment </option>
+                                    <option value="Endodotontic Treatment ">Endodotontic Treatment </option>
+                                    <option value="Orthodontic Attachment ">Orthodontic Attachment </option>
+                                    <option value="Orthodontic Adjustment ">Orthodontic Adjustment</option>
+                                    <option value="Removable Patial Denture ">Removable Patial Denture </option>
+                                    <option value="Complete Denture ">Complete Denture </option>
+                                    <option value="Crown and Bridges ">Crown and Bridges </option>
+                                    <option value="Flexite Denture ">Flexite Denture </option>
+                                    <option value="Laminate Veneer ">Laminate Veneer </option>
+                                    <option value="Teeth Whitening ">Teeth Whitening </option>
+                                </select>
+                            </div>
+                        
+                            <div class="calendar-section">
+                                <label for="startDate">From:</label>
+                                <input type="date" id="startDate">
+                        
+                                <label for="endDate">To:</label>
+                                <input type="date" id="endDate">
+                        
+                                <button onclick="resetFilters()">Reset</button>
+                                <button onclick="applyFilters()">Apply</button>
+                            </div>
+                        </div>
+                        
+                        <div class="service-table" id="service-table"  style="display: none;">
+                            <p id="report"></p>
+                            <p id="Prereport"></p>
+                                <div class="scrollable">
+                                    <table class="table" id="fulltbody">
+                                        <thead>
+                                                <th>First Name</th>
+                                                <th>Last Name</th>
+                                                <th>Services</th>
+                                                <th>Remarks</th>
+                                                <th>Date</th>
+                                                <th>Time</th>
+                                                <th>Doctor</th>
+                                                
+                                                
+                                            </thead>
+                                        <tbody id="tbodyservice"></tbody>
+                                    </table>
+                                </div>
+                            <button style="margin-top: 10px;" type="button" onclick="printTable()" id = "hide">Print Table Data</button>
+                        </div>
+
+                    </div>
+                    
+                    <!-- Total Patients Cards Container -->
+                    <div class="total-patients-cards-container">
+                        <!-- Section Title -->
+                        <div class="total-patients-title">
+                            <h3>Patient Population</h3>
+                        </div>
+
+                        <!-- Total Patients Cards -->
+                        <div class="total-patients-cards">
+                            <div class="card">
+                                <h2>Total Patients</h2>
+                                <p id="TP"></p>
+                            </div>
+
+                            <div class="card">
+                                <h2>Total Patients in Cavite</h2>
+                                <p id="TPC"></p>
+                            </div>
+
+                            <div class="card">
+                                <h2>Total Patients Outside Cavite</h2>
+                                <p id="TPOC"></p>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <!-- City Cards Container -->
+                    <div class="city-cards-container">
+                        <!-- Section Title -->
+                        <div class="city-cards-title">
+                            <h3>Patient Population by City / Municipality in Cavite</h3>
+                            <div class="card-navigation">
+                                <button onclick="showPreviousCards()" class="prev-button">Previous</button>
+                                <button onclick="showNextCards()" class="next-button">Next</button>
+                            </div> 
+                        </div>
+
+                        <!-- City Cards -->
+                        <div class="city-cards">
+                            <div class="card">
+                                <h2>Alfonso</h2>
+                                <p id="Alfonso"></p>
+                            </div>
+
+                            <div class="card">
+                                <h2>Amadeo</h2>
+                                <p id="Amadeo"></p>
+                            </div>
+
+                            <div class="card">
+                                <h2>Bacoor</h2>
+                                <p id="Bacoor"></p>
+                            </div>
+
+                            <div class="card">
+                                <h2>Carmona</h2>
+                                <p id="Carmona"></p>
+                            </div>
+
+                            <div class="card">
+                                <h2>Cavite City</h2>
+                                <p id="CaviteCity"></p>
+                            </div>
+
+                            <div class="card">
+                                <h2>Dasmarinas</h2>
+                                <p id="Dasmarinas"></p>
+                            </div>
+
+                            <div class="card">
+                                <h2>Gen. Mariano Alvarez</h2>
+                                <p id="GenMarianoAlvarez"></p>
+                            </div>
+
+                            <div class="card">
+                                <h2>General Emilio Aguinaldo</h2>
+                                <p id="GeneralEmilioAguinaldo"></p>
+                            </div>
+
+                            <div class="card">
+                                <h2>General Trias</h2>
+                                <p id="GeneralTrias"></p>
+                            </div>
+
+                            <div class="card">
+                                <h2>Imus</h2>
+                                <p id="Imus"></p>
+                            </div>
+
+                            <div class="card">
+                                <h2>Indang</h2>
+                                <p id="Indang"></p>
+                            </div>
+
+                            <div class="card">
+                                <h2>Kawit</h2>
+                                <p id="Kawit"></p>
+                            </div>
+
+                            <div class="card">
+                                <h2>Magallanes</h2>
+                                <p id="Magallanes"></p>
+                            </div>
+
+                            <div class="card">
+                                <h2>Maragondon</h2>
+                                <p id="Maragondon"></p>
+                            </div>
+
+                            <div class="card">
+                                <h2>Mendez-Nunez</h2>
+                                <p id="Mendez-Nunez"></p>
+                            </div>
+
+                            <div class="card">
+                                <h2>Naic</h2>
+                                <p id="Naic"></p>
+                            </div>
+
+                            <div class="card">
+                                <h2>Noveleta</h2>
+                                <p id="Noveleta"></p>
+                            </div>
+
+                            <div class="card">
+                                <h2>Rosario</h2>
+                                <p id="Rosario"></p>
+                            </div>
+
+                            <div class="card">
+                                <h2>Silang</h2>
+                                <p id="Silang"></p>
+                            </div>
+
+                            <div class="card">
+                                <h2>Tagaytay</h2>
+                                <p id="Tagaytay"></p>
+                            </div>
+
+                            <div class="card">
+                                <h2>Tanza</h2>
+                                <p id="Tanza"></p>
+                            </div>
+
+                            <div class="card">
+                                <h2>Ternate</h2>
+                                <p id="Ternate"></p>
+                            </div>
+
+                            <div class="card">
+                                <h2>Trece Martires</h2>
+                                <p id="TreceMartires"></p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Total Patients Cards Container -->
+                    <div class="gender-age-container">
+                        <div class="total-patients-title">
+                            <h3>Gender and Age Group Distribution</h3>
+                        </div>
+                        
+                        <div class="chart-container">
+                            <div class="gender-stats">
+                                <h3>Patient Population by Gender</h3>
+                                <div class="gender-container">
+                                    <canvas class="gender-chart"></canvas>
+                                </div>
+                            
+                                <div class="genderdetails">
+                                    <ul></ul>
+                                </div>
+                            </div>
+
+                            <div class="age-stats">
+                                <h3>Patient Population by Age Group</h3>
+                                <div class="age-container">
+                                <canvas class="age-chart"></canvas>
+                                </div>
+                        
+                                <div class="agedetails">
+                                <ul></ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>                    
+                </div>
+                
+
+
+                <!-- Accepted Appointment -->
+                <div id="accepted-appointment" class="content-section table-container" style="display: none;">
+                    <select id="filterDate" onchange="filterDate()">
+                        <option value="all">All</option>
+                        <option value="today">Today</option>
+                    </select>
+                    <div class="container mt-3">
+                        <table class="table">
+                            <thead>
+                                    <th>Last Name</th>
+                                    <th>First Name</th>
+                                    <th>Service</th>
+                                    <th>Date</th>
+                                    <th>Time</th>
+                                    <th>Doctor</th>
+                                    <th>Action</th>
+                                </thead>
+                            <tbody id="tbodyaccept"></tbody>
+                            <div class="popup-accept">
+                                <div class="popup-content-accept">
+                                    <h3>Remarks:</h3>
+                                    <input class="i-accept"type="text" id="remarks_value" placeholder="" required>
+                                    <a href="#" class="button-accept" id="back">Exit</a>
+                                    <a href="#" class="button-accept" id="remarks">Finished</a>
+                                    <p class="p-error" id="errorMsg" style="color: red;"></p>
+                                </div>
+                            </div>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- Completed Appointment -->
+                <div id="completed-appointment" class="content-section table-container" style="display: none;">
+                    <select id="filterFinished" onchange="filterFinished()">
+                        <option value="all">All</option>
+                        <option value="today">Today</option>
+                    </select>
+                    <div class="container mt-3">
+                        <table>
+                            <thead>
+                                    <th>Last Name</th>
+                                    <th>First Name</th>
+                                    <th>Service</th>
+                                    <th>Remarks</th>
+                                    <th>Date</th>
+                                    <th>Time</th>
+                                    <th>Doctor</th>
+                                </thead>
+                            <tbody id="tbodyfinished"></tbody>
+                        </table>
+                    </div>
+                </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+            <!-- Manage Record Content -->
+            <div id="manage-record" class="content-section table-container" style="display: none;">
+            <div id="information">
+        
+                <div class="input-group">
+                    <input type="search" class="form-control" id="searchInput" placeholder="Search By">
+                    <div class="input-group-append">
+                        <select class="custom-select" id="searchCriteria">
+                            <option value="username">Username</option>
+                            <option value="first_name">First Name</option>
+                            <option value="last_name">Last Name</option>
+                        </select>
+                    </div>
+                </div>
+        
+        
+                <div >
+                    <div>
+                        <table>
+                            <thead>
+                                <!-- <th>ID</th> -->
+                                <th>USERNAME</th>
+                                <th>FIRST NAME</th>
+                                <th>MIDDLE NAME</th>
+                                <th>LAST NAME</th>
+                                <th>BIRTH DATE</th>
+                                <th>ACTION</th>
+                            </thead>
+                            <tbody id="tbody1" style="height: 330px; overflow-y: auto;">
+                                <!-- Your table rows here -->
+                            </tbody>
+                            
+                        </table>
+                    </div>
+                </div>
+        
+                <div id="update">
+                    ID : <input type="text" name="PID" id="PID"><br><br>
+                    Username : <input type="text" name="Uname" id="Uname"><br><br>
+                    Password : <input type="password" name="Pass" id="Pass"><input type="checkbox" onclick="showP()">Show Password<br><br>    
+                    First name : <input type="text" name="Fname" id="Fname"><br><br>
+                    Middle name : <input type="text" name="Mname" id="Mname"><br><br>
+                    Last name : <input type="text" name="Lname" id="Lname"><br><br>
+                    Gender : <input type="text" name="Gender" id="Gender"><br><br>
+                    Birth Date : <input type="text" name="Bdate" id="Bdate"><br><br>
+                    Email : <input type="text" name="Email" id="Email"><br><br>
+                    Number : <input type="text" name="Number" id="Number"><br><br>
+                    province : <input type="text" name="Province" id="province"><br><br>
+                    CM : <input type="text" name="City/Municipality" id="CM"><br><br>
+                    barangay : <input type="text" name="barangay" id="barangay"><br><br>
+                    Civil Status <input type="text" name="Civilstat" id="Civilstat"><br><br>
+                    <p id="dumpP"></p>
+        
+                    <button onclick="UpdateDetails()">
+                        Update Details
+                    </button>
+                </div>
+            </div>
+        
+        
+        
+        
+        
+           
+            </div>
+      
+                </div>
+
+                <!-- Schedule Blocking Content -->
+                <div id="schedule-blocking" class="content-section" style="display: none;">
+                   <div class="container">
+                        <div class="steps">
+                            <span class="circle active">1</span>
+                            <span class="circle">2</span>
+                            <span class="circle">3</span>
+                            <span class="circle">4</span>
+                            <span class="circle">5</span>
+                            <div class="progress-bar">
+                                <span class="indicator"></span>
+                            </div>
+                        </div>
+                        <div class="container">
+                            <div class="book">
+                
+                                <iframe id="myIframe" src="assets\adminblock\step1.html" frameborder="0" allowfullscreen="" overflow: hidden; scrolling="no"></iframe>
+                    
+                            </div>
+                            <input type="text" id="doctor_step1" placeholder="Doctor" required readonly>
+                            <input type="hidden" id="services_step2" placeholder="Services" required readonly>
+                            <input type="hidden" id="date_step3" placeholder="Date" required readonly>
+                            <input type="hidden" id="time_step3" placeholder="Time" required readonly>    
+                
+                            <input type="hidden" id="last_name" required>
+                            <input type="hidden" id="first_name" required>
+                            <input type="hidden" id="email" required>
+                            <input type="hidden" id="phone_number" required>
+                            <input type="hidden" id="middle_name" required>
+                            <input type="hidden" id="gender" required>
+                            <input type="hidden" id="address" required>
+                            <input type="hidden" id="civil_status" required>
+                            <input type="hidden" id="birthday" required>
+                
+                            <p id="errorMsg" style="color: red;"></p>
+                            <div class="buttons">
+                                <button id="prev" disabled>Back</button>
+                                <button id="next">Next</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Logout Content -->
+                <div id="logout" class="content-section" style="display: none;">
+                    <p>Logout</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Firebase configuration -->
+    
+</body>
+</html>

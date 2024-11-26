@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link rel="stylesheet" href="assets/css/main.css">
+    <link rel="stylesheet" href="assets/css/myhistory.css">
+    <link rel="stylesheet" href="assets/css/username-indicator.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pikaday/1.8.0/css/pikaday.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pikaday/1.8.0/pikaday.min.js"></script>
+    <title>Joson-Perey Dental Clinic</title>
+</head>
+
+<body>
+    <!-- Header -->
+    <header>
+        <div class="top-header">
+            <p>Opening Hours: 8 AM - 5 PM, closed every Wednesday and Sunday</p>
+        </div>
+
+        <div class="navbar">
+            <div class="logo">
+                <img src="assets/images/Header/logo.png" alt="Logo Image">
+                <div class="logo-text">Joson-Perey</div>
+            </div>
+            <div class="hamburger">
+                <div></div>
+                <div></div>
+                <div></div>
+            </div>
+            <ul class="nav-links">
+                <li><a onclick="home()" class="header-links" href="#home">Home</a></li>
+                <li><a onclick="services()" class="header-links" href="#services">Services</a></li>
+                <li><a onclick="doctors()" class="header-links" href="#doctors">Doctors</a></li>
+                <li><a onclick="aboutus()" class="header-links" href="#about-us">About Us</a></li>
+                <li><a onclick="contact()" class="header-links" href="#contact">Contact</a></li>
+                <a class="book-appointment" href="#book-appointment">Book Appointment</a>
+            </ul>
+        </div>
+
+        <div class="username-indicator" id="username-indicator" style="display: none;">
+                <p>You are logged in as: <span id="username-span"></span></p>
+        </div>
+    </header>
+    
+    <!-- Top -->
+    <section class="top" id="top">
+        <div class="topContainer"></div>
+    </section>
+
+    <!-- My History Section -->
+    <section class="myhistory-section" id="myhistory-section">
+        <div class="container mt-3" id="Recordtable">
+            <div class="input-group">
+                <div class="submit">
+                    <button type="button" onclick="home()">Back</button>
+                </div>
+                <input type="search" class="form-control" id="searchInput" placeholder="Search By">
+                <div class="input-group-append">
+                    <select class="custom-select" id="searchCriteria">
+                        <option value="diagnosis">Diagnosis</option>
+                        <option value="date">Date</option>    
+                    </select>
+                </div>
+            </div>
+            <div style="height: 330px; overflow-y:auto;">
+                <div class="fixTableHead">
+                    <table class="table table-dark">
+                        <thead>
+                            <!-- <th>ID</th> -->
+                            <th>DATE</th>
+                            <th>DIAGNOSIS AND SERVICE RENDERED</th>
+                            <th>DOCTOR</th>
+                            <th>REMARKS</th>
+                            <th>RESERVATION FEE</th>
+                        </thead>
+                        <tbody id="history">
+                            <!-- Your table rows here -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2023 Joson-Perey</p>
+    </footer>
+
+    <!-- Scroll-to-top button -->
+    <div class="scroll-to-top" id="scrollToTop" title="Go to top">
+        <i class="fas fa-arrow-up"></i>
+    </div>
+
+    <!-- Firebase configuration -->
+    <script src="https://www.gstatic.com/firebasejs/9.0.2/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.0.2/firebase-database-compat.js"></script>
+
+    <!-- Script -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="assets/js/myhistory.js"></script>
+    <script src="assets/js/headerlinks.js"></script>
+    <script src="assets/js/body.js"></script>
+</body>
+</html>

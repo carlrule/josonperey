@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link rel="shortcut icon" type="x-icon" href="assets/images/Tab Logo/logo.webp">
+    <link rel="stylesheet" href="assets/css/main.css">
+    <link rel="stylesheet" href="assets/css/myappointment.css">
+    <link rel="stylesheet" href="assets/css/username-indicator.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pikaday/1.8.0/css/pikaday.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pikaday/1.8.0/pikaday.min.js"></script>
+    <link rel="stylesheet" href="dist/libs/prismjs/themes/prism-okaidia.min.css">
+    <link rel="stylesheet" href="dist/libs/datatables.net-bs5/css/dataTables.bootstrap5.min.css">
+    <link id="themeColors" rel="stylesheet" href="dist/css/style.min.css" />
+    <link rel="shortcut icon" type="image/png" href="dist/images/logos/favicon.ico" />
+
+    <title>Joson-Perey Dental Clinic</title>
+</head>
+
+<body>
+    <!-- Header -->
+    <header>
+        <div class="top-header">
+            <p style="margin-bottom: -3px!important;">Opening Hours: 8 AM - 5 PM, closed every Wednesday and Sunday</p>
+        </div>
+
+        <div class="navbar" style="padding-top: 10px;padding-bottom: 10px;">
+            <div class="logo">
+                <img src="assets/images/Header/logo.png" alt="Logo Image">
+                <div class="logo-text">Joson-Perey</div>
+            </div>
+            <div class="hamburger">
+                <div></div>
+                <div></div>
+                <div></div>
+            </div>
+            <ul class="nav-links" style="margin-bottom: 0px;">
+                <li><a onclick="home()" class="header-links" href="#home">Home</a></li>
+                <li><a onclick="services()" class="header-links" href="#services">Services</a></li>
+                <li><a onclick="doctors()" class="header-links" href="#doctors">Doctors</a></li>
+                <li><a onclick="aboutus()" class="header-links" href="#about-us">About Us</a></li>
+                <li><a onclick="contact()" class="header-links" href="#contact">Contact</a></li>
+                <a onclick="bookAppointment()" class="book-appointment" href="#book-appointment">Book Appointment</a>
+            </ul>
+        </div>
+
+        <div class="username-indicator" id="username-indicator" style="display: none;">
+            <p>You are logged in as: <span id="username-span"></span></p>
+        </div>
+    </header>
+
+    <!-- Top -->
+    <section class="top" id="top">
+        <div class="topContainer"></div>
+    </section>
+            <style>
+                #accepted_patients_wrapper{
+                    overflow: hidden!important;
+                    padding-bottom: 10px!important;
+                    margin-top: -28px;
+                }
+                .myappointment-section{
+                    display: block!important;
+                    
+                }
+                .table td{
+                    font-size: 14px!important;
+                }
+            </style>
+
+    <!-- My Appointment Section -->
+    <section class="myappointment-section mt-lg-4" id="myappointment-section">
+        <div class=" p-0 container">
+            <div class="mb-2">
+                <span class="fs-8">
+                    <span onclick="home()" style="cursor: pointer;"><i class="ti ti-arrow-left "></i> </span>
+                    <span style="margin-top: -10px;"> Accepted Appointments</span>
+                </span>
+            </div>
+            <div class="card" style="box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="table-responsive " id="accepted-appointments">
+                                <div class="row">
+                                    <div class="col-6">
+                                        <select id="acceptedPerPage" style="float: left;" class="mb-2">
+                                            <option value="10">10</option>
+                                            <option value="25">25</option>
+                                            <option value="50">50</option>
+                                            <option value="100">100</option>
+                                          </select>
+                                    </div>
+                                </div>
+                                <table id="accepted_patients"  class="table border-none table-sm border display table-bordered table-striped no-wrap ">
+                                  <thead>
+                                    <tr>
+                                        <th>Service</th>
+                                        <th>Date</th>
+                                        <th>Time</th>
+                                        <th>Doctor</th>
+                                        <!-- <th>Status</th> -->
+                                    </tr>
+                                  </thead>
+                                  <tbody class="fs-1" id="accepted">
+            
+                                  </tbody>
+                                </table>
+                              </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- Footer -->
+    <footer>
+        <p>Joson-Perey Dental Clinic</p>
+    </footer>
+
+    <!-- Scroll-to-top button -->
+    <div class="scroll-to-top" id="scrollToTop" title="Go to top">
+        <i class="fas fa-arrow-up"></i>
+    </div>
+
+    <script type="module">
+        var pendingappointmentnum = 0;
+        let tbody1 = document.getElementById("accepted");
+        let tbody3 = document.getElementById("pending");
+
+        var username = sessionStorage.getItem("passValueUser");
+
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.5.2/firebase-app.js";
+        const firebaseConfig = {
+            apiKey: "AIzaSyCrih2yzDn4-ADl9vOOMcRUzBl3GFEjGdg",
+            authDomain: "booking-b8486.firebaseapp.com",
+            databaseURL: "https://booking-b8486-default-rtdb.firebaseio.com",
+            projectId: "booking-b8486",
+            storageBucket: "booking-b8486.appspot.com",
+            messagingSenderId: "811552146571",
+            appId: "1:811552146571:web:a133cb091615ae060b808e"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        import { getDatabase, ref, child, onValue, get, remove, set, push } from "https://www.gstatic.com/firebasejs/10.5.2/firebase-database.js";
+        const db = getDatabase();
+
+        function AddItemToTable(doctor, services, date, time, lastname, firstname, email, number, middlename, gender, address, civilstatus, birthday, username, status, tbody, appointmentKey) {
+            const fullName = firstname + " " + middlename + " " + lastname;
+
+            let trow = document.createElement("tr");
+            let td1 = document.createElement("td");
+            let td2 = document.createElement("td");
+            let td3 = document.createElement("td");
+            let td4 = document.createElement("td");
+            // let td5 = document.createElement("td");
+
+            td1.innerHTML = services;
+            td2.innerHTML = date;
+            td3.innerHTML = time;
+            td4.innerHTML = doctor;
+            // td5.innerHTML = status;
+
+
+            trow.appendChild(td1);
+            trow.appendChild(td2);
+            trow.appendChild(td3);
+            trow.appendChild(td4);
+            // trow.appendChild(td5)
+
+            if (tbody === tbody3) {
+                const actionCell = document.createElement("td");
+
+                if (tbody === tbody3) {
+                    var cancelButton = document.createElement("button");
+                    cancelButton.className = "btn btn-primary";
+                    cancelButton.innerText = "Cancel";
+                    cancelButton.onclick = function () {
+                        moveAppointmentToReference(
+                            {
+                                doctor, services, date, time, lastname, firstname,
+                                email, number, middlename, gender, address, civilstatus, birthday, username
+                            },
+                            "canceledappointments",
+                            appointmentKey
+                        );
+                        removeAppointmentFromPending(appointmentKey);
+                        if (doctor === 'Dr Divina P Joson') {
+
+                            performSpecificActions(time, date);
+                        } else if (doctor === 'Dr Rachelle May P Joson') {
+
+                            performSpecificActionsb(time, date);
+                        }
+                    };
+                    actionCell.appendChild(cancelButton);
+                }
+
+                trow.appendChild(actionCell);
+
+            }
+            tbody.appendChild(trow);
+        }
+
+        function AddAllItemsToTable(pendingappointments, tbody, status) {
+
+            tbody.innerHTML = "";
+            if (pendingappointments.length === 0) {
+                const noRecordRow = document.createElement("tr");
+                const noRecordCell = document.createElement("td");
+                if (tbody === tbody3) {
+                    noRecordCell.colSpan = 6;
+                    noRecordCell.innerText = "No records found.";
+                    noRecordCell.style.textAlign = "center";
+                }
+                else if (tbody === tbody1) {
+                    noRecordCell.colSpan = 5;
+                    noRecordCell.innerText = "No records found.";
+                    noRecordCell.style.textAlign = "center";
+                }
+                noRecordRow.appendChild(noRecordCell);
+                tbody.appendChild(noRecordRow);
+            } else {
+                pendingappointments.forEach(appointment => {
+                    const { doctor, services, date, time, lastname, firstname, email, number, middlename, gender, address, civilstatus, birthday, username } = appointment;
+                    const appointmentKey = `${username} ${doctor} ${date} ${time}`;
+                    AddItemToTable(doctor, services, date, time, lastname, firstname, email, number, middlename, gender, address, civilstatus, birthday, username, status, tbody, appointmentKey);
+                });
+
+
+                $("#accepted_patients").DataTable({
+                "responsive": false,
+                "lengthChange": false,
+                "autoWidth": false,
+                "order": [[2, "asc"]],
+                "pageLength": 10,
+                "columns": [
+                  { "searchable": true },
+                  { "searchable": true },
+                  { "searchable": true },
+                  { "searchable": true },
+                ]
+              });
+            }
+        }
+
+        function GetAllDataOnce() {
+            const dbRef = ref(db);
+
+            get(child(dbRef, "acceptedappointments"))
+                .then((snapshot) => {
+                    var appointments = [];
+
+                    snapshot.forEach(childSnapshot => {
+                        const appointment = childSnapshot.val();
+                        // console.log(appointment)
+                        if (appointment.username === username) {
+                            appointments.push(appointment);
+                        }
+                    });
+
+                    // Sort appointments array by date
+                    appointments.sort((a, b) => {
+                        return new Date(a.date) - new Date(b.date);
+                    });
+
+                    AddAllItemsToTable(appointments, tbody1, "Accepted");
+                })
+                .catch((error) => {
+                    console.error("Error fetching completed appointments:", error);
+                });
+
+
+            get(child(dbRef, "pendingappointments"))
+                .then((snapshot) => {
+                    var appointments = [];
+
+                    snapshot.forEach(childSnapshot => {
+                        const appointment = childSnapshot.val();
+                        if (appointment.username === username) {
+                            appointments.push(appointment);
+                        }
+                    });
+                   
+                    AddAllItemsToTable(appointments, tbody3, "Pending");
+                })
+                .catch((error) => {
+                    console.error("Error fetching pending appointments:", error);
+                });
+        }
+
+        function moveAppointmentToReference(appointment, destinationRef, appointmentKey) {
+            const dbRef = ref(db, destinationRef);
+            const newAppointmentRef = child(dbRef, appointmentKey);
+            set(newAppointmentRef, appointment)
+                .then(() => {
+
+                })
+                .catch((error) => {
+                    console.error("Error moving appointment:", error);
+                });
+        }
+        function removeAppointmentFromPending(appointmentKey) {
+            const dbRef = ref(db, "pendingappointments");
+            const appointmentToDeleteRef = child(dbRef, appointmentKey);
+            remove(appointmentToDeleteRef)
+                .then(() => {
+                })
+                .catch((error) => {
+                    alert("Error removing appointment:", error);
+                });
+            location.reload();
+        }
+        function getDurationInMinutes(time) {
+
+            const [startTime, endTime] = time.split('-').map(str => str.trim());
+
+            const startDate = new Date(`2000-01-01 ${startTime}`);
+            const endDate = new Date(`2000-01-01 ${endTime}`);
+
+            const durationMs = endDate - startDate;
+
+            const durationMinutes = durationMs / (1000 * 60);
+
+            return durationMinutes;
+        }
+
+        function performSpecificActions(time, date) {
+            const durationMinutes = getDurationInMinutes(time);
+            const name = time;
+
+            if (durationMinutes === 30) {
+                const data = new URLSearchParams();
+                data.append('date', date);
+                data.append('timeslot', time);
+                data.append('name', name);
+                fetch('delete_booking.php', {
+                    method: 'POST',
+                    body: data,
+                })
+                    .then(response => response.text())
+                    .then(result => {
+                        console.log(result);
+                    })
+                    .catch(error => {
+                        console.error(error);
+                    });
+
+
+            } else if (durationMinutes === 60) {
+                const data = new URLSearchParams();
+                data.append('date', date);
+                data.append('timeslot', time);
+                data.append('name', name);
+                fetch('delete_booking2.php', {
+                    method: 'POST',
+                    body: data,
+                })
+                    .then(response => response.text())
+                    .then(result => {
+                        console.log(result);
+                    })
+                    .catch(error => {
+                        console.error(error);
+                    });
+
+            } else if (durationMinutes === 120) {
+                const data = new URLSearchParams();
+                data.append('date', date);
+                data.append('timeslot', time);
+                data.append('name', name);
+                fetch('delete_booking3.php', {
+                    method: 'POST',
+                    body: data,
+                })
+                    .then(response => response.text())
+                    .then(result => {
+                        console.log(result);
+                    })
+                    .catch(error => {
+                        console.error(error);
+                    });
+
+            }
+        }
+        function getDurationInMinutesb(time) {
+
+            const [startTime, endTime] = time.split('-').map(str => str.trim());
+
+            const startDate = new Date(`2000-01-01 ${startTime}`);
+            const endDate = new Date(`2000-01-01 ${endTime}`);
+
+            const durationMs = endDate - startDate;
+
+            const durationMinutes = durationMs / (1000 * 60);
+
+            return durationMinutes;
+        }
+
+        function performSpecificActionsb(time, date) {
+            const durationMinutes = getDurationInMinutesb(time);
+            const name = time;
+            if (durationMinutes === 30) {
+                const data = new URLSearchParams();
+                data.append('date', date);
+                data.append('timeslot', time);
+                data.append('name', name);
+                fetch('delete_bookingb.php', {
+                    method: 'POST',
+                    body: data,
+                })
+                    .then(response => response.text())
+                    .then(result => {
+                        console.log(result);
+                    })
+                    .catch(error => {
+                        console.error(error);
+                    });
+
+
+            } else if (durationMinutes === 60) {
+                const data = new URLSearchParams();
+                data.append('date', date);
+                data.append('timeslot', time);
+                data.append('name', name);
+                fetch('delete_booking2b.php', {
+                    method: 'POST',
+                    body: data,
+                })
+                    .then(response => response.text())
+                    .then(result => {
+                        console.log(result);
+                    })
+                    .catch(error => {
+                        console.error(error);
+                    });
+
+            } else if (durationMinutes === 120) {
+                const data = new URLSearchParams();
+                data.append('date', date);
+                data.append('timeslot', time);
+                data.append('name', name);
+                fetch('delete_booking3b.php', {
+                    method: 'POST',
+                    body: data,
+                })
+                    .then(response => response.text())
+                    .then(result => {
+                        console.log(result);
+                    })
+                    .catch(error => {
+                        console.error(error);
+                    });
+
+            }
+        }
+        window.onload = GetAllDataOnce;
+    </script>
+    <!-- Firebase configuration -->
+    <script src="https://www.gstatic.com/firebasejs/9.0.2/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.0.2/firebase-database-compat.js"></script>
+
+    <!-- Script -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <script src="assets/js/headerlinks.js"></script>
+    <script src="assets/js/myappointment.js"></script>
+    <script src="assets/js/body.js"></script>
+    <script src="assets/js/homeslider.js"></script>
+    <script src="dist/libs/datatables.net/js/jquery.dataTables.min.js"></script>
+    <script src="dist/js/datatable/datatable-basic.init.js"></script>
+    <script>
+        $('#acceptedPerPage').on('change', function () {
+      var newValue = $(this).val();
+      $('#accepted_patients').DataTable().page.len(newValue).draw();
+    });
+    
+    </script>
+</body>
+
+</html>
