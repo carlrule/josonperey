@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
+<title>Step 1</title>
+<style>
+:root {
+  --primary-color: rgb(1, 41, 41);
+}
+
+* {
+  box-sizing: border-box;
+  font-family: sans-serif;
+}
+
+/* .container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center; 
+  align-items: center; 
+}
+
+.radio-tile-group {
+  display: flex;
+
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1rem; 
+  max-width: 600px; 
+  width: 90%;
+  padding: 0 1rem; 
+}
+
+.input-container {
+  position: relative;
+  height: auto; 
+  width: calc(60% - 1rem);
+  margin: 0.5rem;
+}
+
+
+
+
+*/
+
+.input-container .radio-tile {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  border: 2px solid var(--primary-color);
+  border-radius: 8px;
+  transition: all 300ms ease;
+}
+.input-container input {
+  position: absolute;
+  height: 100%;
+  width: 50%;
+  margin: 0;
+  cursor: pointer;
+  z-index: 2;
+  opacity: 0;
+}
+.input-container img {
+  padding: 10px;
+  width: 5rem;
+  height: 5rem;
+  max-width: 100%;
+}
+
+.input-container p {
+  color: #1b6969;
+}
+
+.input-container label {
+  color: var(--primary-color);
+  font-size: 1.80rem;
+  font-weight: 600;
+  letter-spacing: 1px;
+}
+
+input:checked + .radio-tile {
+  background-color: rgb(229, 229, 229);
+  box-shadow: 0 0 12px var(--primary-color);
+}
+
+input:hover + .radio-tile {
+  box-shadow: 0 0 12px var(--primary-color);
+}  
+
+/* @media (max-width: 768px) {
+  .input-container {
+    width: 100%;
+  }
+} */
+/* @media (min-width: 964px) {
+  .radio-tile-group {
+  max-width: 600px!important;
+  flex-wrap: wrap;
+}
+} */
+
+</style>
+</head>
+<body style="background: transparent;">
+<div class="container ">
+  <div class="row">
+    <center><h1 style='font-size: 36px; font-weight: bold;'>Choose a doctor:</h1></center>
+
+      <div class="radio-tile-group row " >
+        <div class="input-container col-md-6 col-sm-6  col-12 " style="background: transparent;" >
+          <input id="Dr. Divina P. Joson" style="width: 100%;" type="radio" name="radio" value="Dr Divina P Joson">
+          <div class="radio-tile">
+            <img src="1.webp">
+            <center><label for="doctor1">Dr. Divina P. Joson</label></center>
+            <center><p>Gen. Dentistry / Orthodontics / Cosmetic Dentistry</p></center>
+          </div>
+        </div>
+        
+        <div class="input-container col-md-6 col-sm-6  col-12">
+          <input id="Dr. Rachelle May P. Joson" style="width: 100%;" type="radio" name="radio" value="Dr Rachelle May P Joson">
+          <div class="radio-tile">
+            <img src="2.webp">
+            <center><label for="doctor2">Dr. Rachelle May P. Joson</label></center>
+            <center><p>Gen. Dentistry / Orthodontics / Cosmetic Dentistry</p></center>
+          </div>
+        </div>
+        <input type="hidden" id="step1" readonly required>
+      </div>
+  </div>
+</div>
+
+<script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+<script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+<script src="step1.js" defer></script>
+</body>
+</html>
