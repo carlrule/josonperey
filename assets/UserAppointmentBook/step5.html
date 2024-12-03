@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        .custom-button {
+            background-color: #00a4e4;
+            color: white;
+            padding: 15px 30px;
+            border: none; 
+            border-radius: 8px; 
+            cursor: pointer; 
+            font-size: 20px;
+            display: block;
+            margin: 0 auto; 
+        }
+    
+        .custom-button:hover {
+            background-color: #0087b8;
+        }
+        </style>
+</head>
+<body>
+    <center>
+        <h1 style='margin-bottom: 20px; font-size: 36px; font-weight: bold'>Status:</h1>
+        <p style='font-size: 20px'>Accepted</p>
+    </center>
+
+    <!-- Button aligned center -->
+    <button class="custom-button" onclick="goToHomePage()">Home</button>
+</body>
+
+    <script>
+    function goToHomePage() {
+    var data = "Go to home"; // Assign a value to the data variable
+    if (window.parent) {
+        window.parent.postMessage(data, '*');
+    }
+}
+
+</script>
+
+</html>

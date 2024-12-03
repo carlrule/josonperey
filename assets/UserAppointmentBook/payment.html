@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Your Paymongo Integration</title>
+</head>
+<body>
+
+<!-- Your HTML content goes here -->
+<center><h1 style='margin-bottom: 20px; font-size: 36px; font-weight: bold'>Payment:</h1></center>
+<div>
+  <iframe id="checkoutIframe" style="width:100%; height:900px;overflow: auto;" ></iframe>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="assets/js/myappointment.js"></script>
+<script>
+$(document).ready(function () {
+    let checkoutUrl = ''; // Variable to store checkout URL
+
+    // Paymongo integration code here
+    const options = {
+        method: 'POST',
+        headers: {
+            accept: 'application/json',
+            'content-type': 'application/json',
+            authorization: 'Basic c2tfdGVzdF9OaHhFaERjVHk1NHdGQmR6WEdpcVVVdWE6'
+        },
+        body: JSON.stringify({
+            data: {
+                attributes: { amount: 10000, description: 'Reservation Fee' }
+            }
+        })
+    };
+
+
+    $.ajax({
+        url: 'https://api.paymongo.com/v1/links',
+        type: 'POST',
+        headers: options.headers,
+        data: options.body,
+        success: function (response) {
+          console.log(response.data.id)
+          if (localStorage.getItem('paid_payment_check') !== null) {
+                    localStorage.setItem('paid_payment_check', response.data.id);
+                } else {
+                    localStorage.setItem('paid_payment_check', response.data.id);
+                }
+          // localStorage.setItem('paid_payment_check', paid_payment_check);
+            checkoutUrl = response.data.attributes.checkout_url;
+            $('#checkoutIframe').attr('src', checkoutUrl);
+        },
+        error: function (err) {
+            console.error(err);
+        }
+    });
+    });
+</script>
+
+</body>
+</html>

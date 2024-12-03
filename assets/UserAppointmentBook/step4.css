@@ -1,0 +1,37 @@
+#myself,
+#someone_else {
+    display: flex;
+    flex-direction: column;
+    max-width: 500px;
+    margin: 0 auto;
+}
+
+#myself label,
+#someone_else label {
+    margin-bottom: 5px;
+}
+
+#myself input,
+#someone_else input {
+    margin-bottom: 10px;
+    padding: 5px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.radio-form {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 10px;
+    margin-right: 5px;
+}
+
+.radio-form input[type="radio"] {
+    margin-right: 10px;
+    margin-left: 25px;
+}
+
+.radio-form label {
+    font-size: 20px;
+}

@@ -1,0 +1,243 @@
+/* ===== Google Font Import - Poppins ===== */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+body {
+    /*background saka pagitna yung content*/
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #4070f4;
+}
+
+.container {
+    /*Laman at properties ng container */
+    position: relative;
+    max-width: 900px;
+    width: 100%;
+    border-radius: 6px;
+    padding: 30px;
+    margin: 0 15px;
+    background-color: #fff;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+}
+
+.container h1 {
+    /*Yung "Login" header properties*/
+    position: relative;
+    font-size: 50px;
+    font-weight: 600;
+    color: #333;
+}
+
+.container h1::before {
+    /*Yung guhit na design sa ilalim ng "Login" */
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: -2px;
+    height: 10px;
+    width: 50px;
+    border-radius: 8px;
+    background-color: #4070f4;
+}
+
+.container form {
+    /*Yung gray na highlight sa loob ng form box */
+    position: relative;
+    margin-top: 16px;
+    min-height: 490px;
+    background-color: #f2f2f2;
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Center the form elements */
+}
+
+.container form div {
+    /*layo ng "Login" sa "Username" at "Password" */
+    margin-top: 60px;
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Center the input fields */
+}
+
+.container form div label {
+    /*"Username" at "Password" labels */
+    display: block;
+    margin-bottom: 8px;
+    font-size: 16px;
+    font-weight: 500;
+    margin: 6px 0;
+    color: #333;
+}
+
+.container form .fields {
+    /*para patagilid at may spacing yung mga textfield */
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+.container form .fields .input-field {
+    /*ewan ko kung ano to pero pwedeng may background yung mga "Username""Password" etc */
+    display: flex;
+    width: calc(100% / 2 - 15px);
+    flex-direction: column;
+    margin: 4px 0;
+}
+
+.input-field label {
+    /*Kulay nung mga "Username""Password" etc */
+    padding: 15px;
+    font-size: 12px;
+    font-weight: 500;
+    color: #2e2e2e;
+}
+
+.input-field input {
+    /*yung laki ata saka properties ng font size/color ng textfield */
+  /* Styling for the input fields */
+  outline: none;
+    font-size: 14px; /* Set the font size to match the first code */
+    font-weight: 1000; /* Set the font weight to match the first code */
+    color: #333; /* Text color for the input fields */
+    border-radius: 200px;
+    border: 1px solid #aaa;
+    padding: 100px 100px; /* Adjust the padding to control the height (Set the padding to match the first code) */
+    margin: 100px 1000; /* This seems to be incorrect. The values should be in pixels (e.g., 10px, 20px, etc.) */
+}
+.input-field input:is(:focus, :valid) {
+    /* Styling for the input fields when they are focused or have valid input */
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.13);
+}
+
+.container form button {
+    /*Properties nung button */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 35px;
+    max-width: 200px;
+    width: 100%;
+    border: none;
+    outline: none;
+    color: #fff;
+    border-radius: 5px;
+    background-color: #4070f4;
+    transition: all 0.3 linear;
+    cursor: pointer;
+    margin-top: 25px; /* Move the button down a bit */
+}
+
+form button:hover {
+    /*Ito den tas pag naka hover */
+    background-color: #079938;
+}
+
+form button i {
+    margin: 0 6px;
+}
+
+
+
+
+/* styles.css */
+.registration-link {
+    font-size: 14px; /* You can adjust the font size as per your preference */
+    color: #007bff; /* Change the link color if needed */
+    text-decoration: none; /* Remove underline from the link */
+}
+
+.registration-link:hover {
+    text-decoration: underline; /* Add underline on hover for better user experience */
+}
+
+p{  /*yung LINK na create one here*/
+    margin-top: 1px;
+    font-size: 12px;
+}
+
+
+form .backBtn i{ /*PANG ROTATE NUNG ICON SA BACK BUTTON!*/
+    transform: rotate(180deg);
+}
+
+
+.input-field input {
+    /* ... Other styles ... */
+    transition: box-shadow 0.3s ease-in-out; /* Add smooth transition for box-shadow */
+}
+
+.input-field input:is(:focus, :valid) {
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.13);
+}
+
+
+
+
+
+
+
+
+  .fade-out-right {
+    opacity: 0;
+    pointer-events: none;
+    animation: fadeOutRightAnimation 0.5s ease-out;
+  }
+
+  .fade-in-left {
+    opacity: 1;
+    pointer-events: auto;
+    animation: fadeInLeftAnimation 0.5s ease-in;
+  }
+
+  @keyframes fadeOutRightAnimation {
+    from {
+      opacity: 1;
+      transform: translateX(0);
+    }
+    to {
+      opacity: 0;
+      transform: translateX(20px);
+    }
+  }
+
+  @keyframes fadeInLeftAnimation {
+    from {
+      opacity: 0;
+      transform: translateX(-20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+
+
+  .fade-out {
+    opacity: 0;
+    pointer-events: none;
+    animation: fadeOutAnimation 0.5s ease-out;
+  }
+
+  @keyframes fadeOutAnimation {
+    from {
+      opacity: 1;
+    }
+    to {
+      opacity: 0;
+    }
+  }
+
+  .container,
+  .admin-container {
+    transition: opacity 0.5s ease-in-out;
+  }
